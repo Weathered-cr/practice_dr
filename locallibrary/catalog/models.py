@@ -48,4 +48,4 @@ class Author(models.Model):
         return reverse('author-detail', args=[str(self.id)])
 
     def __str__(self):
-        return '%s %s' % (self.first_name, self.last_name)
+        return '%s, %s' % (self.last_name, self.first_name)

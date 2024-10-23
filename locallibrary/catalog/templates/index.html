@@ -1,6 +1,7 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
+{% block title %}<title>Home Page</title>{% endblock %}
 <h1>Local Library Home</h1>
 
   <p>Welcome to <em>LocalLibrary</em>, a very basic Django website developed as a tutorial example on the Mozilla Developer Network.</p>
@@ -14,6 +15,12 @@
     <li><strong>Copies available:</strong> {{ num_instances_available }}</li>
     <li><strong>Authors:</strong> {{ num_authors }}</li>
   </ul>
+  <form method="get">
+    <label>Search Word</label>
+    <input type="text" id="search_word" name="search_word" value="{{ search_word }}">
+    <button type="submit">Search</button>
+  </form>
+<p>Total books containing "{{ search_word }}: {{book_count }}</p>
 
   <p>
     You have visited this page {{ num_visits }}{% if num_visits == 1 %} time{%

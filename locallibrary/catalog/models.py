@@ -40,7 +40,7 @@ class BookInstance(models.Model):
         ordering = ['due_back']
 
     def __str__(self):
-        return '%s (%s)' % (self.id, self.book.title)
+        return f'{self.book.title} (ID: {self.id}) - Status: {self.get_status_display()}, Due back: {self.due_back if self.due_back else "No due date"}'
 
 class Author(models.Model):
     first_name = models.CharField(max_length=100)

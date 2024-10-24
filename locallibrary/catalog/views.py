@@ -17,7 +17,7 @@ def index(request):
     num_visits = request.session.get('num_visits', 0)
     request.session['num_visits'] = num_visits + 1
 
-    search_word = request.GET.get('search_word', ' ')
+    search_word = request.GET.get('search_word', '')
     search_word_lower = search_word.lower()
 
     if search_word:
@@ -46,7 +46,6 @@ class BookListView(generic.ListView):
 
 class BookDetailView(generic.DetailView):
     model = Book
-    paginate_by = 2
 
     def book_detail_view(request, pk):
         try:

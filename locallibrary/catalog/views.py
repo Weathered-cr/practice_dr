@@ -14,6 +14,9 @@ def index(request):
     num_instances_available = BookInstance.objects.filter(status__exact='a').count()
     num_authors = Author.objects.count()
 
+    num_visits = request.session.get('num_visits', 0)
+    request.session['num_visits'] = num_visits + 1
+
     search_word = request.GET.get('search_word', ' ')
     search_word_lower = search_word.lower()
 
@@ -27,7 +30,7 @@ def index(request):
         'index.html',
         context=
         {'num_books' :num_books, 'num_instances' :num_instances, 'num_instances_available':num_instances_available,
-         'num_authors':num_authors, 'book_count':book_count, 'search_word':search_word}
+         'num_authors':num_authors, 'book_count':book_count, 'search_word':search_word, 'num_visits':num_visits},
     )
 
 from django.views import generic

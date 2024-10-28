@@ -1,5 +1,7 @@
 from lib2to3.fixes.fix_input import context
 from re import search
+
+from django.contrib.auth.models import Permission
 from django.http import Http404
 from django.shortcuts import render
 
@@ -155,3 +157,13 @@ class AuthorUpdate(UpdateView):
 class AuthorDelete(DeleteView):
     model = Author
     success_url = reverse_lazy('authors')
+
+from django.contrib.auth.mixins import PermissionRequiredMixin
+class LoanedBooksAllListView(PermissionRequiredMixin,generic.ListView):
+    model = BookInstance
+    permission_required = 'catalog.can_mark_returned'
+    template_name = 'catalog/bookinstance_list_borrowed_all.html'
+    paginate_by = 4
+
+    def get_queryset(self):
+        return BookInstance.objects.filter(status_exact='o').order_by('due_back')
